@@ -17,7 +17,7 @@ pub fn ige_encrypt(plaintext: &[u8], key: &[u8], iv: &[u8]) -> Result<Vec<u8>, J
     }
 
     if iv.len() != 32 {
-        throw_str("key must contain 32 bits")
+        throw_str("iv must contain 32 bits")
     }
 
     Ok(_ige_encrypt(plaintext, array_ref!(key, 0, 32), array_ref!(iv, 0, 32)))
@@ -34,7 +34,7 @@ pub fn ige_decrypt(ciphertext: &[u8], key: &[u8], iv: &[u8]) -> Result<Vec<u8>, 
     }
 
     if iv.len() != 32 {
-        throw_str("key must contain 32 bits")
+        throw_str("iv must contain 32 bits")
     }
 
     Ok(_ige_decrypt(ciphertext, array_ref!(key, 0, 32), array_ref!(iv, 0, 32)))
