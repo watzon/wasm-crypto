@@ -1,2 +1,9 @@
-/target
-Cargo.lock
+# cargo build
+target/
+
+# wasm-pack
+pkg/
+
+# editors
+.idea/
+.vscode/

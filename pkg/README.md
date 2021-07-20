@@ -7,7 +7,7 @@ Various Rust crypto libraries wrapped in WASM for use in Deno and the browser.
 Be sure to build with `--unstable`.
 
 ```typescript
-import { ige_encrypt, ige_decrypt } from 'https://deno.land/x/wasm_crypto/mod.js';
+import { igeEncrypt, igeDecrypt } from 'https://deno.land/x/wasm_crypto/mod.js';
 
 const key = Uint8Array.from([0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
             0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f])
@@ -18,13 +18,23 @@ const iv = Uint8Array.from([0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08
 const plaintext = Uint8Array.from([0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
             0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f])
 
-const ciphertext = ige_encrypt(plaintext, key, iv)
-const decrypted  = ige_decrypt(ciphertext, key, iv)
+const ciphertext = igeEncrypt(plaintext, key, iv)
+const decrypted  = igeDecrypt(ciphertext, key, iv)
 
 console.log('Original value: ', plaintext)
 console.log('Encrypted value:', ciphertext)
 console.log('Decrypted value:', decrypted)
 ```
+
+# Building
+
+Building will require [deno](https://deno.land), [rust](https://rust-lang.org), and [wasm-pack](https://github.com/rustwasm/wasm-pack). Once all dependencies are installed, just run:
+
+```sh
+deno run -A ./scripts/build.ts
+```
+
+`mod.ts` is not generated, so any new definitions will have to be manually added there.
 
 # Roadmap
 

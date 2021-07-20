@@ -19,4 +19,4 @@ js = []
 
 [profile.release]
 lto = true
-opt-level = 3
+opt-level = "z"
