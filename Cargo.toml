@@ -10,9 +10,13 @@ crate-type = ["cdylib"]
 grammers-crypto = "0.3.0"
 wasm-bindgen = "0.2.74"
 arrayref = "0.3.6"
-# rust-crypto-wasm = "0.3.1"
+rust-crypto-wasm = "0.3.1"
 js-sys = "0.3.38"
 getrandom = { version = "0.2", features = ["js"] }
 
 [features]
 js = []
+
+[profile.release]
+lto = true
+opt-level = 3

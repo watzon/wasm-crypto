@@ -25,3 +25,38 @@ console.log('Original value: ', plaintext)
 console.log('Encrypted value:', ciphertext)
 console.log('Decrypted value:', decrypted)
 ```
+
+# Roadmap
+
+The end goal for this project is to have all of the algorithms implemented that I possibly can. Since that will lead to very large WASM binaries though, I would like to eventually have different wasm/js files for different algorithm types (hashing, ciphers, etc). For now, however, everything will be bundled into a single binary.
+
+- [ ] AES
+  - [x] CBC (Counter)
+  - [x] IGE (Infinite Garbled Extension)
+  - [ ] CTR (Cipher Block Chaining)
+  - [ ] ECB (Electronic Codebook)
+- [ ] Bcrypt
+- [ ] BLAKE2b
+- [ ] BLAKE2s
+- [ ] Blowfish
+- [ ] ChaCha20
+- [ ] Curve25519
+- [ ] ECB, CBC, and CTR block cipher modes
+- [ ] Ed25519
+- [ ] Fortuna
+- [ ] Ghash
+- [ ] HC128
+- [ ] HMAC
+- [ ] MD5
+- [ ] PBKDF2
+- [ ] PKCS padding for CBC block cipher mode
+- [ ] Poly1305
+- [ ] RC4
+- [ ] RIPEMD-160
+- [ ] Salsa20 and XSalsa20
+- [ ] Scrypt
+- [ ] Sha1
+- [ ] Sha2 (All fixed output size variants)
+- [ ] Sha3
+- [ ] Sosemanuk
+- [ ] Whirlpool
