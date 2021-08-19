@@ -1,6 +1,6 @@
 # WASM Crypto
 
-Various Rust crypto libraries wrapped in WASM for use in Deno and the browser.
+Various Rust crypto libraries wrapped in WASM for use in Deno and the browser. This library is specifically made for use with Telegram crypto, but other non-telegram related things will be added here.
 
 # Usage
 

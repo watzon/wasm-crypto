@@ -7,6 +7,8 @@ import init, {
     ctr128 as _ctr128,
     ctr192 as _ctr192,
     ctr256 as _ctr256,
+    factorize as _factorize,
+    RsaKey as _RsaKey
 } from "./wasm.js";
   
   await init(source);
@@ -94,4 +96,39 @@ export function igeEncrypt(plaintext: Uint8Array, key: Uint8Array, iv: Uint8Arra
  */
  export function ctr256(plaintext: Uint8Array, key: Uint8Array, iv: Uint8Array): Uint8Array {
     return _ctr256(plaintext, key, iv);
+}
+
+/**
+ * Factorize the given number into its two prime factors.
+ * 
+ * @param pq the number to factorize
+ * @returns [BigInt, BigInt]
+ */
+export function factorize(pq: BigInt): [BigInt, BigInt] {
+    return Array.from(_factorize(pq)) as [BigInt, BigInt]
+}
+
+/**
+ * Represents an RSA key.
+ */
+export class RsaKey {
+    private _key: _RsaKey
+
+    constructor(n: string, e: string) {
+        this._key = _RsaKey.new(n, e)
+    }
+
+    /**
+     * Encrypt the given payload using RSA.
+     * 
+     * @param payload the payload to be encrypted
+     * @param randomBytes 256 byte Uint8Array
+     * @returns Uint8Array
+     */
+    encrypt_hashed(payload: string | Uint8Array, randomBytes: Uint8Array): Uint8Array {
+        payload = typeof payload === 'string'
+            ? (new TextEncoder()).encode(payload)
+            : payload
+        return this._key.encrypt_hashed(payload, randomBytes);
+    }
 }
