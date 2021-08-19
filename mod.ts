@@ -131,4 +131,11 @@ export class RsaKey {
             : payload
         return this._key.encrypt_hashed(payload, randomBytes);
     }
+
+    /**
+     * Frees allocated memory. This class will not be usable after this is called.
+     */
+    free() {
+        this._key.free();
+    }
 }
