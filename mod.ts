@@ -8,7 +8,8 @@ import init, {
     ctr192 as _ctr192,
     ctr256 as _ctr256,
     factorize as _factorize,
-    RsaKey as _RsaKey
+    RsaKey as _RsaKey,
+    crc32 as _crc32
 } from "./wasm.js";
   
   await init(source);
@@ -138,4 +139,14 @@ export class RsaKey {
     free() {
         this._key.free();
     }
+}
+
+/**
+ * Calculate the CRC32 checksum of a byte array.
+ * 
+ * @param buffer
+ * @returns {number}
+ */
+export function crc32(buffer: Uint8Array) {
+    return _crc32(buffer);
 }

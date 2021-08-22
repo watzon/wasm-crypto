@@ -11,6 +11,7 @@ use grammers_crypto::auth_key::{AuthKey as _AuthKey};
 use grammers_crypto::factorize::{factorize as _factorize};
 use grammers_crypto::rsa::{Key as _Key, encrypt_hashed as _encrypt_hashed};
 use crypto::aes::{ KeySize, ctr as _ctr };
+use crc32fast::Hasher;
 
 
 // IGE
@@ -162,4 +163,11 @@ impl RsaKey {
 
         _encrypt_hashed(data, &self.key, array_ref!(random_bytes, 0, 256))
     }
+}
+
+#[wasm_bindgen]
+pub fn crc32(buffer: &[u8]) -> u32 {
+    let mut hasher = Hasher::new();
+    hasher.update(buffer);
+    hasher.finalize()
 }
