@@ -88,8 +88,8 @@ pub fn ctr256(plaintext: &[u8], key: &[u8], iv: &[u8]) -> Result<Vec<u8>, JsValu
         throw_str("key must contain 32 bits")
     }
 
-    if iv.len() != 32 {
-        throw_str("iv must contain 32 bits")
+    if iv.len() != 16 {
+        throw_str("iv must contain 16 bits")
     }
 
     let mut encrypter = _ctr(KeySize::KeySize256, &key[..], &iv[..]);
