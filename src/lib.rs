@@ -22,11 +22,11 @@ pub fn ige_encrypt(plaintext: &[u8], key: &[u8], iv: &[u8]) -> Result<Vec<u8>, J
     }
 
     if key.len() != 32 {
-        throw_str("key must contain 32 bits")
+        throw_str("key must be 32 bytes")
     }
 
     if iv.len() != 32 {
-        throw_str("iv must contain 32 bits")
+        throw_str("iv must be 32 bytes")
     }
 
     Ok(_ige_encrypt(plaintext, array_ref!(key, 0, 32), array_ref!(iv, 0, 32)))
@@ -39,11 +39,11 @@ pub fn ige_decrypt(ciphertext: &[u8], key: &[u8], iv: &[u8]) -> Result<Vec<u8>, 
     }
 
     if key.len() != 32 {
-        throw_str("key must contain 32 bits")
+        throw_str("key must be 32 bytes")
     }
 
     if iv.len() != 32 {
-        throw_str("iv must contain 32 bits")
+        throw_str("iv must be 32 bytes")
     }
 
     Ok(_ige_decrypt(ciphertext, array_ref!(key, 0, 32), array_ref!(iv, 0, 32)))
@@ -53,11 +53,11 @@ pub fn ige_decrypt(ciphertext: &[u8], key: &[u8], iv: &[u8]) -> Result<Vec<u8>, 
 #[wasm_bindgen]
 pub fn ctr128(plaintext: &[u8], key: &[u8], iv: &[u8]) -> Result<Vec<u8>, JsValue> {
     if key.len() != 16 {
-        throw_str("key must contain 16 bits")
+        throw_str("key must be 16 bytes")
     }
 
     if iv.len() != 16 {
-        throw_str("iv must contain 16 bits")
+        throw_str("iv must be 16 bytes")
     }
 
     let mut encrypter = _ctr(KeySize::KeySize128, &key[..], &iv[..]);
@@ -69,11 +69,11 @@ pub fn ctr128(plaintext: &[u8], key: &[u8], iv: &[u8]) -> Result<Vec<u8>, JsValu
 #[wasm_bindgen]
 pub fn ctr192(plaintext: &[u8], key: &[u8], iv: &[u8]) -> Result<Vec<u8>, JsValue> {
     if key.len() != 24 {
-        throw_str("key must contain 24 bits")
+        throw_str("key must be 24 bytes")
     }
 
     if iv.len() != 24 {
-        throw_str("iv must contain 24 bits")
+        throw_str("iv must be 24 bytes")
     }
 
     let mut encrypter = _ctr(KeySize::KeySize192, &key[..], &iv[..]);
@@ -85,11 +85,11 @@ pub fn ctr192(plaintext: &[u8], key: &[u8], iv: &[u8]) -> Result<Vec<u8>, JsValu
 #[wasm_bindgen]
 pub fn ctr256(plaintext: &[u8], key: &[u8], iv: &[u8]) -> Result<Vec<u8>, JsValue> {
     if key.len() != 32 {
-        throw_str("key must contain 32 bits")
+        throw_str("key must be 32 bytes")
     }
 
     if iv.len() != 16 {
-        throw_str("iv must contain 16 bits")
+        throw_str("iv must be 16 bytes")
     }
 
     let mut encrypter = _ctr(KeySize::KeySize256, &key[..], &iv[..]);
@@ -108,7 +108,7 @@ pub struct AuthKey {
 impl AuthKey {
     pub fn from_bytes(data: &[u8]) -> Self {
         if data.len() != 256 {
-            throw_str("data must contain 256 bytes")
+            throw_str("data must be 256 bytes")
         }
 
         let key = _AuthKey::from_bytes(array_ref!(data, 0, 256).to_owned());
@@ -124,7 +124,7 @@ impl AuthKey {
 
     pub fn calc_new_nonce_hash(&self, new_nonce: &[u8], number: u8) -> Uint8Array {
         if new_nonce.len() != 32 {
-            throw_str("data must contain 32 bytes")
+            throw_str("data must be 32 bytes")
         }
 
         let hash = self.auth_key.calc_new_nonce_hash(array_ref!(new_nonce, 0, 32), number);
@@ -158,7 +158,7 @@ impl RsaKey {
 
     pub fn encrypt_hashed(&self, data: &[u8], random_bytes: &[u8]) -> Vec<u8> {
         if random_bytes.len() != 256 {
-            throw_str("random_bytes must contain 256 bytes exactly")
+            throw_str("random_bytes must be 256 bytes exactly")
         }
 
         _encrypt_hashed(data, &self.key, array_ref!(random_bytes, 0, 256))
